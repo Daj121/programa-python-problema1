@@ -1,45 +1,66 @@
-# Evaluador de Nivel de Compromiso de Sesiones de Clientes
-
- 
-**Fase:** 5 - Evaluación Final POA  
-
----
+# Problema 1 - Evaluador de Nivel de Compromiso por Sesión
 
 ## Descripción
+Herramienta interactiva que permite ingresar datos de sesiones de clientes y clasifica el nivel de compromiso de cada una según su duración y cantidad de clics.
 
-Programa en Python que analiza sesiones de clientes almacenadas en una matriz y clasifica el nivel de compromiso de cada sesión según su duración y cantidad de clics.
+## Estructura de Datos
+Cada sesión se almacena en una matriz con el formato:
 
-## Estructura del proyecto
+| Campo | Tipo | Descripción |
+|---|---|---|
+| ID Cliente | string | Identificador único del cliente |
+| Duración | int | Duración de la sesión en segundos |
+| Clics | int | Número de eventos de clic registrados |
 
-```
-📄 problema1_sesiones.py   # Código fuente principal
-📄 README.md               # Este archivo
-```
+## Lógica de Clasificación
 
-## Cómo ejecutar
+| Nivel | Condición |
+|---|---|
+| **Alto** | Duración > 180s **Y** Clics > 8 |
+| **Bajo** | Duración < 60s **O** Clics < 3 |
+| **Medio** | Todos los demás casos |
+
+## Módulos
+
+### `clasificar_compromiso(duracion, clics)`
+Recibe la duración y los clics de una sesión y retorna el nivel de compromiso: `"Alto"`, `"Medio"` o `"Bajo"`.
+
+### `ingresar_sesiones()`
+Solicita al usuario los datos de cada sesión de forma interactiva. Después de cada ingreso pregunta si desea agregar otra sesión.
+
+### `main()`
+Orquesta el flujo: llama al ingreso de datos y genera el informe final en consola.
+
+## Cómo Ejecutar
 
 ```bash
 python problema1_sesiones.py
 ```
 
-## Lógica de clasificación
-
-| Condición | Clasificación |
-|-----------|--------------|
-| Duración > 180s **Y** Clics > 8 | Alto |
-| Duración < 60s **O** Clics < 3 | Bajo |
-| Cualquier otro caso | Medio |
-
-## Ejemplo de salida
+## Ejemplo de Uso
 
 ```
+=== INGRESO DE SESIONES ===
+
+ID Cliente: C001
+Duracion (segundos): 200
+Eventos Clics: 10
+
+Agregar otra sesion? (s/n): s
+
+ID Cliente: C002
+Duracion (segundos): 45
+Eventos Clics: 2
+
+Agregar otra sesion? (s/n): n
+
 ==================================================
-  INFORME DE NIVEL DE COMPROMISO POR SESIÓN
+  INFORME DE NIVEL DE COMPROMISO POR SESION
 ==================================================
-ID Cliente   Duración (s)    Clics    Clasificación
+ID Cliente   Duracion (s)    Clics    Clasificacion
 --------------------------------------------------
-C001         210             12       Alto
+C001         200             10       Alto
 C002         45              2        Bajo
-C003         130             5        Medio
 ==================================================
+Total sesiones: 2
 ```
