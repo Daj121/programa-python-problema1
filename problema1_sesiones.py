@@ -2,19 +2,6 @@
 # Problema 1 - Una matriz almacena datos de sesiones de clientes con el formato: [ID Cliente, Duración (segundos), Eventos Clics]. 
 # ============================================================
 
-# --- DATOS INICIALES ---
-# Matriz con formato: [ID Cliente, Duración, Eventos Clics]
-sesiones = [
-    ["C001", 210, 12],
-    ["C002", 45,  2],
-    ["C003", 130, 5],
-    ["C004", 300, 9],
-    ["C005", 55,  10],
-    ["C006", 190, 7],
-    ["C007", 30,  1],
-]
-
-
 # --- Función Clasificar Compromiso ---
 def clasificar_compromiso(duracion, clics):
     """Determina el nivel de compromiso de una sesión."""
@@ -26,12 +13,42 @@ def clasificar_compromiso(duracion, clics):
         return "Medio"
 
 
+# --- INGRESO DINÁMICO DE DATOS ---
+def ingresar_sesiones():
+    sesiones = []
+    print("=== INGRESO DE SESIONES ===\n")
+
+    while True:
+        id_cliente = input("ID Cliente: ").strip()
+        try:
+            duracion = int(input("Duracion (segundos): "))
+            clics    = int(input("Eventos Clics: "))
+            sesiones.append([id_cliente, duracion, clics])
+            print()
+        except ValueError:
+            print("Error: duracion y clics deben ser numeros enteros.\n")
+            continue
+
+        continuar = input("Agregar otra sesion? (s/n): ").strip().lower()
+        print()
+        if continuar != "s":
+            break
+
+    return sesiones
+
+
 # --- PROGRAMA PRINCIPAL ---
 def main():
+    sesiones = ingresar_sesiones()
+
+    if not sesiones:
+        print("No se ingresaron sesiones.")
+        return
+
+    print("\n" + "=" * 50)
+    print("  INFORME DE NIVEL DE COMPROMISO POR SESION")
     print("=" * 50)
-    print("  INFORME DE NIVEL DE COMPROMISO POR SESIÓN")
-    print("=" * 50)
-    print(f"{'ID Cliente':<12} {'Duración (s)':<15} {'Clics':<8} {'Clasificación'}")
+    print(f"{'ID Cliente':<12} {'Duracion (s)':<15} {'Clics':<8} {'Clasificacion'}")
     print("-" * 50)
 
     for sesion in sesiones:
@@ -42,8 +59,7 @@ def main():
         print(f"{id_cliente:<12} {duracion:<15} {clics:<8} {nivel}")
 
     print("=" * 50)
-    print("Fin del informe.")
+    print(f"Total sesiones: {len(sesiones)}")
 
 
 main()
-  
